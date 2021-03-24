@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <h3>
+        Personas Físicas
+      </h3>
+    </div>
+    <div align="right" class="col-4">
+      <div class="btn-group">
+        <button type="button" (click)="openAddModal()"
+                class="btn btn-success action-btn" alt="Add new element">
+          <i class="fas fa-user-plus"></i>
+        </button>
+        <button type="button" (click)="exportExcel()"
+                class="btn btn-dark action-btn" alt="Export as Excel">
+          <i class="far fa-file-excel"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <br />
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido Paterno</th>
+        <th scope="col">Apellido Materno</th>
+        <th scope="col">RFC</th>
+        <th scope="col">Fecha Nacimiento</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let persona of personas | paginate: { itemsPerPage: 10, currentPage: p } ">
+        <th scope="row">{{ persona.idPersonaFisica }}</th>
+        <td>{{ persona.nombre }}</td>
+        <td>{{ persona.apellidoPaterno }}</td>
+        <td>{{ persona.apellidoMaterno }}</td>
+        <td>{{ persona.rfc }}</td>
+        <td>{{ persona.fechaNacimiento }}</td>
+        <td>
+          <div class="btn-group">
+            <button type="button" (click)="openEditModal(persona)"
+                    class="btn btn-info action-btn" alt="Edit element">
+              <i class="far fa-edit"></i>
+            </button>
+            <button type="button" (click)="openDeleteModal(persona.idPersonaFisica)"
+                    class="btn btn-danger action-btn" alt="Drop element">
+              <i class="far fa-trash-alt"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>

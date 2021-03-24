@@ -1,0 +1,6 @@
+{
+  "candidato/api/login/authenticate": {
+    "target": "https://api.toka.com.mx/candidato/api/login/authenticate",
+    "secure": false
+  }
+}

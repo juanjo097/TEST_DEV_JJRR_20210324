@@ -1,0 +1,40 @@
+<div class="container" style="padding-right: 180px; padding-left: 180px; margin-top: 130px">
+  <div class="card text-center">
+    <div class="card-header">
+      Prueba Técnica Toka
+    </div>
+    <div class="card-body">
+      <!--<div *ngIf="error" class="alert alert-danger">{{ error.error }}</div>-->
+      <h2 align="center">Login</h2>
+      <br />
+      <br />
+      <form [formGroup]="form_login" (ngSubmit)="onSubmit()">
+        <div align="center" class="form-group">
+          <input placeholder="User" type="text" formControlName="username" class="form-control input-login" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Username is required</div>
+          </div>
+        </div>
+        <br />
+        <div align="center" class="form-group">
+          <input placeholder="Password" type="password" formControlName="password" class="form-control input-login" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+          </div>
+        </div>
+        <br />
+        <div align="center" class="form-group">
+          <button [disabled]="loading" class="btn btn-primary btn-login">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Login
+          </button>
+        </div>
+      </form>
+
+    </div>
+    <div class="card-footer text-muted">
+      Juan José Rodríguez Rangel
+    </div>
+  </div>
+</div>
+

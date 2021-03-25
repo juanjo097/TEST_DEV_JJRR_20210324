@@ -13,16 +13,20 @@ export class CustomersComponent implements OnInit {
 
   constructor(private api: ApiService) { }
 
-  ngOnInit() {
-    this.api.getCustomers().subscribe(
-      _rsp =>
-      {
-        console.log(_rsp);
-      },
-      _err =>
-      {
-        console.error(_err);
-      });
+  ngOnInit()
+  {
+    this.api.loginCustomers().subscribe(
+      _rsp => { console.log(_rsp); }, _err => { console.error(_err); }
+    );
+    //this.api.getCustomers().subscribe(
+    //  _rsp =>
+    //  {
+    //    console.log(_rsp);
+    //  },
+    //  _err =>
+    //  {
+    //    console.error(_err);
+    //  });
   }
 
 }

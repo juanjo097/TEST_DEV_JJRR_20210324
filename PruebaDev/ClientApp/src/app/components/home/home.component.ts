@@ -9,15 +9,13 @@ import { ApiService } from '../../_services/api.service';
 })
 export class HomeComponent
 {
-  cur_user: null;
   user_name: null;
 
   constructor(private router: Router,
-    private api: ApiService) {
-    this.api.cur_usr.subscribe(x => this.cur_user = x);
-
-    this.user_name = this.cur_user.user.username
-
+    private api: ApiService)
+  {
+    let cur_user = this.api.currentUserValue;
+    this.user_name = cur_user.user.username;
   }
 
   logout()

@@ -53,32 +53,22 @@ namespace PruebaDev.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTbPersonasFisicas(int id, TbPersonasFisicas tbPersonasFisicas)
+        public async Task<List<RespuestaSP>> PutTbPersonasFisicas(int id, TbPersonasFisicas tbPersonasFisicas)
         {
-            if (id != tbPersonasFisicas.IdPersonaFisica)
-            {
-                return BadRequest();
-            }
+            var id_p = new SqlParameter("@IdPersonaFisica", id);
+            var nombre = new SqlParameter("@Nombre", tbPersonasFisicas.Nombre);
+            var apellido_paterno = new SqlParameter("@ApellidoPaterno", tbPersonasFisicas.ApellidoPaterno);
+            var apellido_materno = new SqlParameter("@ApellidoMaterno", tbPersonasFisicas.ApellidoMaterno);
+            var rfc = new SqlParameter("@RFC", tbPersonasFisicas.Rfc);
+            var fecha_nacimiento = new SqlParameter("@FechaNacimiento", tbPersonasFisicas.FechaNacimiento);
+            var usuario_agrega = new SqlParameter("@UsuarioAgrega", tbPersonasFisicas.UsuarioAgrega);
 
-            _context.Entry(tbPersonasFisicas).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TbPersonasFisicasExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return Ok();
+            var rsp = await _context.Set<RespuestaSP>()
+                              .FromSqlRaw("EXEC sp_ActualizarPersonaFisica @IdPersonaFisica, @Nombre, @ApellidoPaterno, "
+                              + "@ApellidoMaterno, @RFC, @FechaNacimiento, @UsuarioAgrega",id_p ,nombre, apellido_paterno,
+                                                                            apellido_materno, rfc, fecha_nacimiento, usuario_agrega)
+                              .ToListAsync();
+            return rsp;
         }
 
         // POST: api/TbPersonasFisicas

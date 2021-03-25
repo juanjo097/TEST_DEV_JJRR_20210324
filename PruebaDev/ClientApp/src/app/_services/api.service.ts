@@ -4,6 +4,8 @@ import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Router, RouterStateSnapshot } from '@angular/router';
 
+import { IPersonasFisicas } from '../_models/IPersonasFisicas';
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +20,7 @@ export class ApiService
   private toka_url = 'https://api.toka.com.mx/candidato/api/';
   errorData: {};
 
-  private token_customers =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InVjYW5kMDAyMSIsInJvbGUiOiJEZXZlbG9wZXIiLCJuYmYiOjE2MTY0Njg5NTcsImV4cCI6MTYxNjQ3MDE1NywiaWF0IjoxNjE2NDY4OTU3LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQ5MjIwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo0OTIyMCJ9.V9KsgcHt10cERXFSZP2mOO6J7rjs-1W8CAEQx7NTM10';
+  private token_customers = '';
 
   constructor(private http: HttpClient, private router: Router)
   {
@@ -51,8 +52,7 @@ export class ApiService
       );
   }
 
-  getPersonaFisica()
-  {
+  getPersonaFisica(): Observable<any>{
     return this.http.get<any>(this.url + 'TbPersonasFisicas').pipe(map(personas_f =>
     {
       return personas_f;
@@ -62,8 +62,7 @@ export class ApiService
   }
 
 
-  deletePersonaFisica(id)
-  {
+  deletePersonaFisica(id): Observable<any>{
     return this.http.delete<any>(this.url + 'TbPersonasFisicas/' + id).pipe(map(persona_f =>
     {
       return persona_f;
@@ -72,17 +71,10 @@ export class ApiService
     );
   }
 
-  addPersonaFisica(data)
-  {
-    return this.http.post<any>(this.url + 'TbPersonasFisicas',
-      {
-        Nombre: data.nombre,
-        ApellidoPaterno: data.appelidop,
-        ApellidoMaterno: data.apellidom,
-        RFC: data.rfc,
-        FechaNacimiento: data.fechan,
-        UsuarioAgrega: data.usuarioag
-      })
+  addPersonaFisica(data: IPersonasFisicas): Observable<any>{
+    data.UsuarioAgrega = Number(data.UsuarioAgrega);
+
+    return this.http.post<any>(this.url + 'TbPersonasFisicas', data)
       .pipe(map(data =>
       {
         return data;
@@ -91,9 +83,18 @@ export class ApiService
       );
   }
 
+  updatePersonaFisica(id, data: IPersonasFisicas): Observable<any> {
+    data.UsuarioAgrega = Number(data.UsuarioAgrega);
+    return this.http.put<any>(this.url + 'TbPersonasFisicas/' + id, data)
+      .pipe(map(data => {
+        return data;
+      }),
+        catchError(this.handleError)
+      );
+  }
 
-  getCustomers()
-  {
+
+  getCustomers(){
     const headers = {
       'Authorization': `Bearer ${this.token_customers}`,
     };
@@ -103,6 +104,15 @@ export class ApiService
         headers
       }).pipe(map(customers =>
       {
+        console.log(customers);
+        return customers;
+      }),
+        catchError(this.handleError)
+      );
+  }
+
+  test() {
+    return this.http.get<any>('https://jsonplaceholder.typicode.com/todos/1').pipe(map(customers => {
         console.log(customers);
         return customers;
       }),

@@ -1,14 +1,68 @@
 <div class="modal-header">
-  <h5 class="modal-title">Modal title</h5>
+  <h5 class="modal-title">Update persona</h5>
   <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
-  <p>Modal body text goes here.</p>
-  <p>{{ fromParent | json }}</p>
+    <form [formGroup]="form_update">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input placeholder="Nombre" type="text" formControlName="Nombre" class="form-control input-login"
+               [ngClass]="{ 'is-invalid': submitted && f.Nombre.errors }" />
+        <div *ngIf="submitted && f.Nombre.errors" class="invalid-feedback">
+          <div *ngIf="f.Nombre.errors.required">Nombre is required</div>
+        </div>
+
+        <label class="mt-4">Apellido Paterno</label>
+        <input placeholder="Apellido Paterno" type="text" formControlName="ApellidoPaterno" class="form-control input-login"
+               [ngClass]="{ 'is-invalid': submitted && f.ApellidoPaterno.errors }" />
+        <div *ngIf="submitted && f.ApellidoPaterno.errors" class="invalid-feedback">
+          <div *ngIf="f.ApellidoPaterno.errors.required">Apellido Paterno is required</div>
+        </div>
+
+        <label class="mt-4">Apellido Materno</label>
+        <input placeholder="Apellido Paterno" type="text" formControlName="ApellidoMaterno" class="form-control input-login"
+               [ngClass]="{ 'is-invalid': submitted && f.ApellidoMaterno.errors }" />
+        <div *ngIf="submitted && f.ApellidoMaterno.errors" class="invalid-feedback">
+          <div *ngIf="f.ApellidoMaterno.errors.required">Apellido Materno is required</div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-7">
+            <label class="mt-4">RFC</label>
+            <input placeholder="RFC" type="text" maxlength="13" formControlName="RFC" class="form-control input-login"
+                   [ngClass]="{ 'is-invalid': submitted && f.ApellidoPaterno.errors }" />
+            <div *ngIf="submitted && f.ApellidoPaterno.errors" class="invalid-feedback">
+              <div *ngIf="f.ApellidoPaterno.errors.required">Apellido Materno is required</div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <label class="mt-4">Fecha de Nacimiento</label>
+            <input placeholder="RFC" type="date" formControlName="FechaNacimiento" class="form-control input-login"
+                   [ngClass]="{ 'is-invalid': submitted && f.FechaNacimiento.errors }" />
+            <div *ngIf="submitted && f.FechaNacimiento.errors" class="invalid-feedback">
+              <div *ngIf="f.FechaNacimiento.errors.required">Fecha de nacimiento is required</div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <label for="gender">Usuario agrega:</label>
+            <div>
+              <input id="male" type="radio" value="1" formControlName="UsuarioAgrega">
+              <label for="male">Si</label>
+            </div>
+            <div>
+              <input id="female" type="radio" value="0" formControlName="UsuarioAgrega">
+              <label for="female">No</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <br />
+    </form>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal('close')">Close</button>
-  <button type="button" class="btn btn-primary" (click)="closeModal('changes saved!')">Save changes</button>
+  <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+  <button type="button" class="btn btn-primary" (click)="updateData()">Save changes</button>
 </div>

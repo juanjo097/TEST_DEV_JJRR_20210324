@@ -38,7 +38,7 @@
         <td>{{ persona.apellidoPaterno }}</td>
         <td>{{ persona.apellidoMaterno }}</td>
         <td>{{ persona.rfc }}</td>
-        <td>{{ persona.fechaNacimiento }}</td>
+        <td>{{ persona.fechaNacimiento | date:'MM/dd/yyyy' }}</td>
         <td>
           <div class="btn-group">
             <button type="button" (click)="openEditModal(persona)"

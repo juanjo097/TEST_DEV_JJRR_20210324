@@ -25,32 +25,21 @@ export class AddPersonaComponent implements OnInit
   {
     this.form_persona = this.form_builder.group({
       Nombre: ['', Validators.required],
-      ApellidoPaterno: ['', Validators.required],
-      ApellidoMaterno: ['', Validators.required],
-      RFC: ['', Validators.required],
+      ApellidoPaterno: [''],
+      ApellidoMaterno: [''],
+      RFC: ['', Validators.maxLength(13)],
       FechaNacimiento: ['', Validators.required],
-      UsuarioAgrega: [0, Validators.required]
+      UsuarioAgrega: [ 1, Validators.required, ]
     });
   }
 
-  sendData()
-  {
+  sendData(){
     this.submitted = true;
     // return invalid form rsp
     if (this.form_persona.invalid)
       return;
 
-    let body =
-    {
-      nombre: this.f.Nombre.value,
-      appelidop: this.f.ApellidoPaterno.value,
-      apellidom: this.f.ApellidoMaterno.value,
-      rfc: this.f.RFC.value,
-      fechan: this.f.FechaNacimiento.value,
-      usuarioag: parseInt(this.f.UsuarioAgrega.value),
-    }
-
-    this.api.addPersonaFisica(body).subscribe(
+    this.api.addPersonaFisica(this.form_persona.value).subscribe(
       _rsp =>
       {
         let status = _rsp[0]['estatus'];

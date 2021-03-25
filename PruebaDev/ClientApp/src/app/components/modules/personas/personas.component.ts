@@ -30,6 +30,13 @@ export class PersonasComponent implements OnInit {
 
   ngOnInit()
   {
+    this.getPersonasFisicas();
+
+    this.api.test().subscribe((_rsp) => { console.log(_rsp) }, (_err) => { console.error(_err) });
+  }
+
+  getPersonasFisicas()
+  {
     this.api.getPersonaFisica().subscribe(
       _rsp => {
         console.log(_rsp);
@@ -37,10 +44,13 @@ export class PersonasComponent implements OnInit {
       },
       _err => {
         console.error(_err);
-      });
+    });
   }
 
-  openAddModal() {
+
+  // add modal action
+  openAddModal()
+  {
     const modal_ref = this.modal.open(AddPersonaComponent,
       {
         scrollable: true,
@@ -49,21 +59,18 @@ export class PersonasComponent implements OnInit {
 
     modal_ref.result.then(
       (_rsp) => {
-        console.log(_rsp);
-        this.api.getPersonaFisica().subscribe(
-          _rsp => {
-            this.personas = _rsp;
-          },
-          _err => {
-            console.error(_err);
-          }
-        );
+        //console.log(_rsp);
+        this.getPersonasFisicas();
       },
-      (_err) => {
+      (_err) =>
+      {
+        console.error(_err);
       }
     );
   }
 
+
+  // update persona modal
   openEditModal(persona_data)
   {
     const modal_ref = this.modal.open(UpdatePersonaComponent,
@@ -76,15 +83,19 @@ export class PersonasComponent implements OnInit {
 
     modal_ref.componentInstance.fromParent = data;
     modal_ref.result.then(
-      (_rsp) => {
-        console.log(_rsp);
+      (_rsp) =>
+      {
+        this.getPersonasFisicas();
       },
-      (_err) => {
+      (_err) =>
+      {
+        console.log(_err);
       }
     );
   }
 
 
+  // delete action modal
   openDeleteModal(id)
   {
     const modal_ref = this.modal.open(DeletePersonaComponent,
@@ -100,14 +111,7 @@ export class PersonasComponent implements OnInit {
     //after close modal update list
     modal_ref.result.then(
       (_rsp) => {
-        this.api.getPersonaFisica().subscribe(
-          _rsp => {
-            this.personas = _rsp;
-          },
-          _err => {
-            console.error("Error");
-          }
-        );
+        this.getPersonasFisicas();
       },
       (_err) => {
       }

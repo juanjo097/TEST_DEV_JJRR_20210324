@@ -17,4 +17,4 @@
 
 ### Notas:
 
-En el proyecto se anexa una carpeta en el directorio raíz del proyecto llamada: **SQL/** en la cual a partir del script que se me proporcionó para la prueba, en el cual hice algunos ajustes, así como cabe mencionar también que en el directorio llamado  **PruebaDev/** se intregra todo el proyecto, tanto la aplicación cliente la cual está desarrollada en **Angular 8** y así como también la aplicación en **.NET Core** para la parte del Backend.
+En el proyecto se anexa una carpeta en el directorio raíz del proyecto llamada: **SQL/** en la cual a partir del script que se me proporcionó para la prueba, hice algunos pequeños ajustes, así como también cabe mencionar también que en el directorio llamado  **PruebaDev/** se intregra todo el proyecto, tanto la aplicación cliente la cual está desarrollada en **Angular 8** (ClientApp) y así como también la aplicación en **.NET Core** para la parte del Backend.

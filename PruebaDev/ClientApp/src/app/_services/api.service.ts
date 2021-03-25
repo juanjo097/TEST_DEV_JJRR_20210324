@@ -33,8 +33,7 @@ export class ApiService
   }
 
 
-  login(username: string, password: string)
-  {
+  login(username: string, password: string){
     return this.http.post<any>(this.url + 'auth/login',
       {
         username: username,
@@ -94,15 +93,23 @@ export class ApiService
   }
 
 
-  getCustomers(){
-    const headers = {
-      'Authorization': `Bearer ${this.token_customers}`,
-    };
+  loginCustomers() {
+    return this.http.post<any>(this.toka_url + 'login/authenticate', {
+      Username: "ucand0021", Password: "yNDVARG80sr@dDPc2yCT!"
+    }, { headers: { skip: "true" }}).pipe(map(data => {
+        
+        if (data && data.Data)
+          localStorage.setItem('toka_token', JSON.stringify(data));
+        this.cur_usr_sbj.next(data);
+        return data;
+      }),
+        catchError(this.handleError)
+      );
+  }
 
-    return this.http.get<any>(this.toka_url + 'customers',
-      {
-        headers
-      }).pipe(map(customers =>
+  getCustomers(){
+
+    return this.http.get<any>(this.toka_url + 'customers').pipe(map(customers =>
       {
         console.log(customers);
         return customers;

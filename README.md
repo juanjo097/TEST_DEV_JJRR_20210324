@@ -24,9 +24,10 @@ En el proyecto se anexa una carpeta en el directorio raíz del proyecto llamada:
 
 Para la autenticación agregué fijas las credenciales, de la cual tengo dos usuarios para acceder a la plataforma:
 
-| usuario  | contraseña |
-|------------------------
-   admin     admin123 
-   user      user123
+| usuario | contraseña |
+|---------|------------|
+| admin   | admin123   |
+| user    | user123    |
+|         |            |
 
 ---
